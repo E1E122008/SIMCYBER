@@ -38,7 +38,7 @@ class SendWAReminderController extends Controller
                      .'Halo'.($respondent->name ? " {$respondent->name}" : '').",\n\n"
                      .'Kami dari tim keamanan ingin memberitahukan bahwa terdapat upaya percobaan login atau '
                      ."aktivitas mencurigakan pada akun pembelajaran digital Anda.\n\n"
-                     .'Tautan simulasi di bawah ini telah kami perpanjang waktu aksesnya. '
+                     .'Tautan di bawah ini telah kami perpanjang waktu aksesnya. '
                      ."Mohon segera masuk dan amankan data Anda.\n\n"
                      ."👉 {$url}\n\n";
         } else {

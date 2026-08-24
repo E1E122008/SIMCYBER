@@ -10,8 +10,8 @@ enum ReminderType: string
     public function label(): string
     {
         return match ($this) {
-            self::SimulasiDiabaikan => 'Tidak Merespons Pesan Email',
-            self::KuesionerBelumSelesai => 'Tidak Menyelesaikan Kuesioner',
+            self::SimulasiDiabaikan => 'Pesan Diabaikan',
+            self::KuesionerBelumSelesai => 'Kuesioner Tidak Selesai',
         };
     }
 }

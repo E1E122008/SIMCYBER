@@ -15,11 +15,11 @@ enum RespondentStatus: string
     {
         return match ($this) {
             self::Pending => 'Menunggu Dikirim',
-            self::Sent => 'Email Terkirim',
-            self::Clicked => 'Tautan Diklik',
-            self::CompletedBehavior => 'Simulasi Selesai',
-            self::CompletedQuestionnaire => 'Kuesioner Selesai',
-            self::Finished => 'Tuntas',
+            self::Sent => 'Terkirim',
+            self::Clicked => 'Akses Link',
+            self::CompletedBehavior => 'Selesai Simulasi',
+            self::CompletedQuestionnaire => 'Selesai Kuesioner',
+            self::Finished => 'Selesai Kuesioner',
         };
     }
 }

@@ -206,7 +206,20 @@ export default function RespondentsIndex({
                                                 {r.class_group}
                                             </td>
                                             <td className="p-3">
-                                                <Badge variant="outline">
+                                                <Badge
+                                                    variant="outline"
+                                                    className={
+                                                        r.status_label === 'Terkirim'
+                                                            ? 'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-400'
+                                                            : r.status_label === 'Akses Link'
+                                                              ? 'border-yellow-500 bg-yellow-50 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-400'
+                                                              : r.status_label.toLowerCase() === 'selesai simulasi'
+                                                                ? 'border-orange-500 bg-orange-50 text-orange-700 dark:bg-orange-900/50 dark:text-orange-400'
+                                                                : r.status_label === 'Selesai Kuesioner'
+                                                                  ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400'
+                                                                  : ''
+                                                    }
+                                                >
                                                     {r.status_label}
                                                 </Badge>
                                             </td>

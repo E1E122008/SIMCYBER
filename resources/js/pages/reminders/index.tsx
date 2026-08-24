@@ -63,7 +63,7 @@ export default function RemindersIndex({ reminders }: Props) {
                                             Responden
                                         </th>
                                         <th className="p-3 font-medium">
-                                            Jenis
+                                            Status
                                         </th>
                                         <th className="p-3 font-medium">
                                             Kanal
@@ -96,7 +96,18 @@ export default function RemindersIndex({ reminders }: Props) {
                                                 </div>
                                             </td>
                                             <td className="p-3">
-                                                {r.reminder_type}
+                                                <Badge
+                                                    variant="outline"
+                                                    className={
+                                                        r.reminder_type.toLowerCase() === 'pesan diabaikan'
+                                                            ? 'border-red-500 bg-red-50 text-red-700 dark:bg-red-900/50 dark:text-red-400'
+                                                            : r.reminder_type.toLowerCase() === 'kuesioner tidak selesai'
+                                                              ? 'border-orange-500 bg-orange-50 text-orange-700 dark:bg-orange-900/50 dark:text-orange-400'
+                                                              : ''
+                                                    }
+                                                >
+                                                    {r.reminder_type}
+                                                </Badge>
                                             </td>
                                             <td className="p-3 capitalize">
                                                 {r.channel}
@@ -139,7 +150,7 @@ export default function RemindersIndex({ reminders }: Props) {
                                                             onClick={() => {
                                                                 const message =
                                                                     r.reminder_type ===
-                                                                    'Tidak Menyelesaikan Kuesioner'
+                                                                    'Kuesioner Tidak Selesai'
                                                                         ? 'Sistem akan mengirim link evaluasi Tally ke WhatsApp responden.'
                                                                         : 'Sistem akan mengirim ulang peringatan keamanan palsu ke WhatsApp responden.';
                                                                 const isDark =
@@ -193,7 +204,7 @@ export default function RemindersIndex({ reminders }: Props) {
                                                         >
                                                             <MessageCircle className="size-4" />
                                                             {r.reminder_type ===
-                                                            'Tidak Menyelesaikan Kuesioner'
+                                                            'Kuesioner Tidak Selesai'
                                                                 ? 'Kirim Tally'
                                                                 : 'Kirim Simulasi'}
                                                         </Button>
