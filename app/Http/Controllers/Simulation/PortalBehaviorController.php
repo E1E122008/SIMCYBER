@@ -61,11 +61,13 @@ class PortalBehaviorController extends Controller
      */
     public function reveal(Request $request, Respondent $respondent): Response|RedirectResponse
     {
-        if ($respondent->status === RespondentStatus::CompletedQuestionnaire || $respondent->status === RespondentStatus::Finished) {
+        $isCompleted = $request->query('completed') === 'true';
+
+        // Jika mereka memuat ulang link tanpa parameter completed=true,
+        // dan status sudah selesai secara keseluruhan, lempar ke halaman completed.
+        if (! $isCompleted && in_array($respondent->status, [RespondentStatus::CompletedQuestionnaire, RespondentStatus::Finished])) {
             return to_route('simulation.completed', ['respondent' => $respondent->session_token]);
         }
-
-        $isCompleted = $request->query('completed') === 'true';
         $tallyUrl = config('services.simulation.tally_url');
 
         return Inertia::render('phishing/reveal', [
