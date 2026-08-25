@@ -16,6 +16,12 @@ class ReminderController extends Controller
     public function index(): Response
     {
         $reminders = ReminderLog::query()
+            ->whereHas('respondent', function ($query) {
+                $query->whereNotIn('status', [
+                    \App\Enums\RespondentStatus::Finished,
+                    \App\Enums\RespondentStatus::CompletedQuestionnaire,
+                ]);
+            })
             ->with('respondent')
             ->latest('scheduled_at')
             ->paginate(20)

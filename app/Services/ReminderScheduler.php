@@ -81,8 +81,9 @@ class ReminderScheduler
             $shouldQueue = false;
 
             if ($respondent->expires_at && $event->sent_at) {
-                // Time limit was configured. Get original duration in minutes
-                $originalDuration = $event->sent_at->diffInMinutes($respondent->expires_at);
+                // Time limit was configured. Get original duration in minutes.
+                // We use created_at instead of sent_at to avoid queue delay diminishing the duration
+                $originalDuration = $respondent->created_at->diffInMinutes($respondent->expires_at);
 
                 if ($originalDuration >= 60) {
                     // Jika batas waktu responnya sekam ke atas, set 10 menit sesudah beraksi di portal
