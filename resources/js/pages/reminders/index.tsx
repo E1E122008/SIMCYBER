@@ -12,7 +12,7 @@ type Reminder = {
     respondent: string;
     class_group: string;
     reminder_type: string;
-    channel: string;
+    phone_number: string;
     attempt_number: number;
     scheduled_at: string;
     sent_at: string | null;
@@ -66,7 +66,7 @@ export default function RemindersIndex({ reminders }: Props) {
                                             Status
                                         </th>
                                         <th className="p-3 font-medium">
-                                            Kanal
+                                            No HP
                                         </th>
                                         <th className="p-3 font-medium">Ke-</th>
                                         <th className="p-3 font-medium">
@@ -109,8 +109,8 @@ export default function RemindersIndex({ reminders }: Props) {
                                                     {r.reminder_type}
                                                 </Badge>
                                             </td>
-                                            <td className="p-3 capitalize">
-                                                {r.channel}
+                                            <td className="p-3">
+                                                {r.phone_number}
                                             </td>
                                             <td className="p-3 tabular-nums">
                                                 {r.attempt_number}

@@ -163,6 +163,9 @@ export default function RespondentsIndex({
                                             Responden
                                         </th>
                                         <th className="p-3 font-medium">
+                                            Email
+                                        </th>
+                                        <th className="p-3 font-medium">
                                             Kelas
                                         </th>
                                         <th className="p-3 font-medium">
@@ -201,6 +204,9 @@ export default function RespondentsIndex({
                                                 <div className="font-mono text-xs text-muted-foreground">
                                                     {r.token.slice(0, 8)}…
                                                 </div>
+                                            </td>
+                                            <td className="p-3">
+                                                {r.email}
                                             </td>
                                             <td className="p-3">
                                                 {r.class_group}
@@ -306,7 +312,7 @@ export default function RespondentsIndex({
                                     {respondents.data.length === 0 && (
                                         <tr>
                                             <td
-                                                colSpan={9}
+                                                colSpan={10}
                                                 className="p-8 text-center text-muted-foreground"
                                             >
                                                 Belum ada data responden.

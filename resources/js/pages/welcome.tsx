@@ -23,7 +23,7 @@ export default function Welcome() {
                 <header className="border-b border-border">
                     <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4">
                         <div className="flex items-center gap-2.5">
-                            <div className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                            <div className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-sm">
                                 <ShieldCheck className="size-5" />
                             </div>
                             <span className="text-sm font-semibold tracking-tight">
@@ -70,12 +70,12 @@ export default function Welcome() {
                         </p>
 
                         <div className="mt-7 flex flex-wrap gap-3">
-                            <Button asChild>
+                            <Button asChild className="shadow-sm">
                                 <Link href={auth.user ? dashboard() : login()}>
                                     Masuk Panel Peneliti
                                 </Link>
                             </Button>
-                            <Button asChild variant="outline">
+                            <Button asChild variant="outline" className="border-primary/20 text-primary hover:bg-primary/5">
                                 <a href="#metode">Pelajari Metode</a>
                             </Button>
                         </div>
@@ -95,7 +95,7 @@ export default function Welcome() {
                         <ol className="mt-4 space-y-3">
                             {flowSteps.map((step, i) => (
                                 <li key={i} className="flex gap-3">
-                                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-border text-xs font-medium text-muted-foreground">
+                                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-medium text-primary">
                                         {i + 1}
                                     </span>
                                     <span className="pt-0.5 text-sm text-muted-foreground">
@@ -123,7 +123,7 @@ export default function Welcome() {
 
                         <div className="mt-6 grid gap-4 sm:grid-cols-2">
                             <div className="rounded-xl border border-border bg-card p-5">
-                                <MailWarning className="size-5 text-muted-foreground" />
+                                <MailWarning className="size-5 text-primary" />
                                 <h3 className="mt-3 font-medium">
                                     Simulasi Phishing Tersamar
                                 </h3>
@@ -135,7 +135,7 @@ export default function Welcome() {
                                 </p>
                             </div>
                             <div className="rounded-xl border border-border bg-card p-5">
-                                <ClipboardList className="size-5 text-muted-foreground" />
+                                <ClipboardList className="size-5 text-primary" />
                                 <h3 className="mt-3 font-medium">
                                     Kuesioner KAB
                                 </h3>

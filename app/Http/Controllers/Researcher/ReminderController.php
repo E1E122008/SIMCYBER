@@ -31,7 +31,7 @@ class ReminderController extends Controller
                 'respondent' => $reminder->respondent->name ?? $reminder->respondent->email,
                 'class_group' => $reminder->respondent->class_group,
                 'reminder_type' => $reminder->reminder_type->label(),
-                'channel' => $reminder->channel->label(),
+                'phone_number' => $reminder->respondent->whatsapp_number ?? '-',
                 'attempt_number' => $reminder->attempt_number,
                 'scheduled_at' => $reminder->scheduled_at->toIso8601String(),
                 'sent_at' => $reminder->sent_at?->toIso8601String(),
