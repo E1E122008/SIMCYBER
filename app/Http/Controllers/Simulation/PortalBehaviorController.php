@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Simulation;
 
 use App\Http\Controllers\Controller;
+use App\Enums\RespondentStatus;
 use App\Models\Respondent;
 use App\Services\SimulationRecorder;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +41,10 @@ class PortalBehaviorController extends Controller
      */
     public function questionnaire(Respondent $respondent)
     {
+        if ($respondent->status === RespondentStatus::CompletedQuestionnaire || $respondent->status === RespondentStatus::Finished) {
+            return to_route('simulation.completed', ['respondent' => $respondent->session_token]);
+        }
+
         $tallyUrl = config('services.simulation.tally_url');
         
         if ($tallyUrl) {
@@ -54,8 +59,12 @@ class PortalBehaviorController extends Controller
     /**
      * Show the debrief / reveal page (mandatory before the questionnaire).
      */
-    public function reveal(Request $request, Respondent $respondent): Response
+    public function reveal(Request $request, Respondent $respondent): Response|RedirectResponse
     {
+        if ($respondent->status === RespondentStatus::CompletedQuestionnaire || $respondent->status === RespondentStatus::Finished) {
+            return to_route('simulation.completed', ['respondent' => $respondent->session_token]);
+        }
+
         $isCompleted = $request->query('completed') === 'true';
         $tallyUrl = config('services.simulation.tally_url');
 
@@ -68,5 +77,13 @@ class PortalBehaviorController extends Controller
                 : null,
             'isCompleted' => $isCompleted,
         ]);
+    }
+
+    /**
+     * Show the completion screen for respondents who have finished both simulation and questionnaire.
+     */
+    public function completed(Respondent $respondent): Response
+    {
+        return Inertia::render('phishing/completed');
     }
 }

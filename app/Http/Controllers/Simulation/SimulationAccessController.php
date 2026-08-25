@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Simulation;
 
 use App\Http\Controllers\Controller;
+use App\Enums\RespondentStatus;
 use App\Models\Respondent;
 use App\Services\SimulationRecorder;
 use Illuminate\Http\RedirectResponse;
@@ -17,6 +18,12 @@ class SimulationAccessController extends Controller
      */
     public function show(Request $request, Respondent $respondent, SimulationRecorder $recorder): RedirectResponse|Response
     {
+        if ($respondent->status === RespondentStatus::CompletedQuestionnaire || $respondent->status === RespondentStatus::Finished) {
+            return redirect()->route('simulation.completed', ['respondent' => $respondent->session_token]);
+        } elseif ($respondent->status === RespondentStatus::CompletedBehavior) {
+            return redirect()->route('simulation.reveal', ['respondent' => $respondent->session_token]);
+        }
+
         $recorder->recordAccess($respondent, $request);
 
         if ($request->query('action') === 'reject') {

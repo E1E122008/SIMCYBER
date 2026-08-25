@@ -32,6 +32,9 @@ Route::middleware('throttle:30,1')->group(function () {
 
     Route::get('/s/{respondent:session_token}/reveal', [PortalBehaviorController::class, 'reveal'])
         ->name('simulation.reveal');
+
+    Route::get('/s/{respondent:session_token}/completed', [PortalBehaviorController::class, 'completed'])
+        ->name('simulation.completed');
 });
 
 /*

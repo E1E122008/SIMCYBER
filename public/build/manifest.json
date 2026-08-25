@@ -416,7 +416,7 @@
     "name": "wayfinder"
   },
   "resources/css/app.css": {
-    "file": "assets/app-DXgBTz8P.css",
+    "file": "assets/app-CpaFrCVg.css",
     "name": "app",
     "names": [
       "app.css"
@@ -425,7 +425,7 @@
     "isEntry": true
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-Bl2QFoBP.js",
+    "file": "assets/app-CFhFjSZl.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -462,6 +462,7 @@
       "resources/js/pages/auth/verify-email.tsx",
       "resources/js/pages/dashboard.tsx",
       "resources/js/pages/data-export.tsx",
+      "resources/js/pages/phishing/completed.tsx",
       "resources/js/pages/phishing/expired.tsx",
       "resources/js/pages/phishing/portal.tsx",
       "resources/js/pages/phishing/reveal.tsx",
@@ -621,6 +622,16 @@
       "_card-WmsNS-GT.js"
     ]
   },
+  "resources/js/pages/phishing/completed.tsx": {
+    "file": "assets/completed-BuKyvJHN.js",
+    "name": "completed",
+    "src": "resources/js/pages/phishing/completed.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_createLucideIcon-CCT6gKO_.js",
+      "_shield-check-D3eFOi77.js"
+    ]
+  },
   "resources/js/pages/phishing/expired.tsx": {
     "file": "assets/expired-DN7t9JTI.js",
     "name": "expired",
@@ -632,7 +643,7 @@
     ]
   },
   "resources/js/pages/phishing/portal.tsx": {
-    "file": "assets/portal-DvTJQga8.js",
+    "file": "assets/portal-CwAsOtWY.js",
     "name": "portal",
     "src": "resources/js/pages/phishing/portal.tsx",
     "isDynamicEntry": true,
