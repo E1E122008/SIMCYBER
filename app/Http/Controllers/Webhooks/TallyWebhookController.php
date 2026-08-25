@@ -92,9 +92,10 @@ class TallyWebhookController extends Controller
     private function extractSessionToken(array $fields): ?string
     {
         foreach ($fields as $field) {
-            $key = Str::lower((string) ($field['key'] ?? $field['label'] ?? ''));
+            $key = Str::lower((string) ($field['key'] ?? ''));
+            $label = Str::lower((string) ($field['label'] ?? ''));
 
-            if (Str::contains($key, 'session_token') || $key === 'token') {
+            if (Str::contains($key, 'session_token') || $key === 'token' || Str::contains($label, 'session_token') || $label === 'token') {
                 return is_string($field['value'] ?? null) ? $field['value'] : null;
             }
         }
@@ -117,28 +118,33 @@ class TallyWebhookController extends Controller
         $buckets = ['knowledge' => [], 'attitude' => [], 'behavior' => []];
 
         foreach ($fields as $field) {
-            $key = (string) ($field['key'] ?? $field['label'] ?? '');
-            $normalised = Str::lower($key);
+            $keyText = (string) ($field['key'] ?? '');
+            $labelText = (string) ($field['label'] ?? '');
+            
+            $keyRaw = $labelText !== '' ? $labelText : $keyText;
+            
+            $normalisedKey = Str::lower($keyText);
+            $normalisedLabel = Str::lower($labelText);
             $value = $field['value'] ?? null;
 
-            if (Str::contains($normalised, 'session_token') || $normalised === 'token') {
+            if (Str::contains($normalisedKey, 'session_token') || $normalisedKey === 'token' || Str::contains($normalisedLabel, 'session_token') || $normalisedLabel === 'token') {
                 continue;
             }
 
             $bucket = match (true) {
-                Str::startsWith($normalised, 'k_') || Str::contains($normalised, ['knowledge', 'pengetahuan']) => 'knowledge',
-                Str::startsWith($normalised, 'a_') || Str::contains($normalised, ['attitude', 'sikap']) => 'attitude',
-                Str::startsWith($normalised, 'b_') || Str::contains($normalised, ['behavior', 'behaviour', 'perilaku']) => 'behavior',
+                Str::startsWith($normalisedLabel, 'k_') || Str::contains($normalisedLabel, ['knowledge', 'pengetahuan']) || Str::startsWith($normalisedKey, 'k_') || Str::contains($normalisedKey, ['knowledge', 'pengetahuan']) => 'knowledge',
+                Str::startsWith($normalisedLabel, 'a_') || Str::contains($normalisedLabel, ['attitude', 'sikap']) || Str::startsWith($normalisedKey, 'a_') || Str::contains($normalisedKey, ['attitude', 'sikap']) => 'attitude',
+                Str::startsWith($normalisedLabel, 'b_') || Str::contains($normalisedLabel, ['behavior', 'behaviour', 'perilaku']) || Str::startsWith($normalisedKey, 'b_') || Str::contains($normalisedKey, ['behavior', 'behaviour', 'perilaku']) => 'behavior',
                 default => null,
             };
 
             if ($bucket === null) {
-                $buckets['behavior']['_uncategorized'][$key] = $value;
+                $buckets['behavior']['_uncategorized'][$keyRaw] = $value;
 
                 continue;
             }
 
-            $buckets[$bucket][$key] = $value;
+            $buckets[$bucket][$keyRaw] = $value;
         }
 
         return $buckets;
