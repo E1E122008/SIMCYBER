@@ -84,8 +84,16 @@ class PortalBehaviorController extends Controller
     /**
      * Show the completion screen for respondents who have finished both simulation and questionnaire.
      */
-    public function completed(Respondent $respondent): Response
+    public function completed(Respondent $respondent): Response|RedirectResponse
     {
-        return Inertia::render('phishing/completed');
+        if (! in_array($respondent->status, [RespondentStatus::CompletedQuestionnaire, RespondentStatus::Finished])) {
+            return to_route('simulation.access', ['respondent' => $respondent->session_token]);
+        }
+
+        return Inertia::render('phishing/completed', [
+            'token' => $respondent->session_token,
+            'behavior_status' => $respondent->simulationEvent?->behavior_status?->value,
+            'keystroke_detected' => (bool) $respondent->simulationEvent?->keystroke_detected,
+        ]);
     }
 }
